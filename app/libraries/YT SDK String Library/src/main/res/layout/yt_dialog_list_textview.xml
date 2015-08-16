@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/title"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/yt_actionbar_buttonpressedeffect"
+    android:maxLines="1"
+    android:paddingBottom="12.5dip"
+    android:paddingTop="12.5dip"
+    android:textColor="@color/yt_text_gray"
+    android:textSize="19.0dip" />
