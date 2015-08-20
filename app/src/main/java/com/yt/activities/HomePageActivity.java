@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -61,6 +60,21 @@ public class HomePageActivity extends FragmentActivity implements
 
         setContentView(R.layout.layout_home);
 
+        YTSDK ytsdk = null;
+
+        try {
+
+            ytsdk = YTSDK.getInstance(this);
+
+            if (ytsdk != null) {
+                ytsdk.setDownloadFolderPath("ytdownloader");
+                ytsdk.download(this, String.format("video", suffix));
+                suffix++;
+            }
+        } catch (InitializationException e) {
+
+            Log.d("YTSDK", e.toString());
+        }
 
         if (GlobalAppData.loggingOut) {
             GlobalAppData.loggingOut = false;
@@ -86,18 +100,7 @@ public class HomePageActivity extends FragmentActivity implements
         moreButton.setVisibility(View.VISIBLE);
         moreButton.setOnClickListener(this);
 
-        try {
-            YTSDK ytsdk = YTSDK.getInstance(HomePageActivity.this);
 
-            if (ytsdk != null) {
-                ytsdk.setDownloadFolderPath(Environment.getExternalStorageDirectory().getPath() + "/downloads");
-                ytsdk.download(this,String.format("video",suffix));
-                suffix++;
-            }
-        } catch (InitializationException e) {
-
-            Log.d("YTSDK", e.toString());
-        }
         loadBannerAds();
         Utils.showFullScreenAd(this);
         /** Add Slider **/
